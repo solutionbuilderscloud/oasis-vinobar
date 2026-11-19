@@ -88,6 +88,9 @@ header.top { display: flex; justify-content: space-between; align-items: center;
 footer { border-top: 1px solid var(--line); padding-top: 28px; display: flex; flex-direction: column; gap: 10px; }
 footer .big { font: 400 clamp(1.6rem, 3.4vw, 2.3rem)/1.15 var(--display); max-width: 24ch; }
 
+.cta { align-self: flex-start; display: inline-block; background: var(--wine); color: var(--on-wine); font: 600 1rem/1 var(--body); padding: 16px 26px; border-radius: 999px; text-decoration: none; }
+.cta:hover { filter: brightness(1.15); }
+.cta:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
 @media (max-width: 760px) {
   body { font-size: 16px; }
   .wrap { gap: 68px; }
@@ -115,6 +118,7 @@ footer .big { font: 400 clamp(1.6rem, 3.4vw, 2.3rem)/1.15 var(--display); max-wi
     <div class="hero-text">
       <h1>A adega inteira em um sistema. Do <em>bipe</em> ao fechamento do dia.</h1>
       <p class="lead">Feito para a Oasis Vinobar: caixa em dólar, real e guarani com o câmbio do dia, estoque que avisa a hora de comprar e o lucro do mês sem planilha.</p>
+      <a class="cta" href="sistema/">Abrir o sistema</a>
     </div>
     <a href="img/caixa.jpg"><img class="shot" src="img/caixa.jpg" width="1440" height="912" alt="Tela do caixa: cupom com quatro vinhos e o total em dólar, real e guarani"></a>
   </section>
@@ -267,7 +271,8 @@ footer .big { font: 400 clamp(1.6rem, 3.4vw, 2.3rem)/1.15 var(--display); max-wi
 
   <footer>
     <p class="big">Pronto para mostrar funcionando, com os vinhos da Oasis.</p>
-    <p class="muted">As telas desta página são do sistema real, com dados de demonstração.</p>
+    <a class="cta" href="sistema/">Abrir o sistema</a>
+    <p class="muted">A demonstração mostra as telas reais com dados de exemplo. Nada é gravado.</p>
   </footer>
 
 </div>
