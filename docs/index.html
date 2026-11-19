@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sistema Oasis Vinobar</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+body{margin:0}img{max-width:100%}
+
+/* Layout: uma coluna larga; cada tela do sistema aparece inteira, com a legenda ao lado. Um único visual claro, o tema claro do sistema. */
+:root {
+  color-scheme: light;
+  --bg: #f4eff7;
+  --panel: #ffffff;
+  --fg: #22102b;
+  --muted: #6b5674;
+  --line: #e0d2e7;
+  --wine: #5e2a70;
+  --gold: #94702c;
+  --on-wine: #ffffff;
+  --shadow: #5e2a7033;
+  --display: "Fraunces", Georgia, "Times New Roman", serif;
+  --body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg) radial-gradient(900px 520px at 0% 0%, #7b3a9126, transparent 62%) no-repeat;
+  color: var(--fg); font: 400 17px/1.55 var(--body);
+}
+.wrap {
+  max-width: 1120px; margin: 0 auto; padding-block: 28px 80px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 96px;
+}
+h1, h2 { font-family: var(--display); font-weight: 400; letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(2.5rem, 6.4vw, 4.6rem); line-height: 1.02; }
+h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); line-height: 1.08; }
+h3 { font: 600 1.15rem/1.3 var(--body); margin: 0; }
+p { margin: 0; }
+em { font-style: italic; color: var(--gold); }
+.muted { color: var(--muted); }
+.eyebrow { font: 600 0.75rem/1 var(--body); letter-spacing: 0.18em; text-transform: uppercase; color: var(--wine); }
+.lead { font-size: 1.2rem; color: var(--muted); max-width: 58ch; }
+
+header.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.logo { font: 500 1.15rem/1 var(--body); letter-spacing: 0.42em; }
+.logo small { display: block; font-size: 0.55rem; letter-spacing: 0.5em; margin-top: 7px; color: var(--muted); text-align: center; }
+
+.hero { display: flex; flex-direction: column; gap: 28px; }
+.hero-text { display: flex; flex-direction: column; gap: 20px; }
+.shot { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); box-shadow: 0 24px 60px var(--shadow); }
+
+.section { display: flex; flex-direction: column; gap: 36px; }
+.section-head { display: flex; flex-direction: column; gap: 14px; }
+
+.feature { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); gap: 36px; align-items: center; }
+.feature:nth-of-type(even) { grid-template-columns: minmax(0, 8fr) minmax(0, 5fr); }
+.feature:nth-of-type(even) .feature-text { order: 2; }
+.feature-text { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.feature-text h3 { font: 400 1.7rem/1.15 var(--display); letter-spacing: -0.01em; }
+.feature-text ul { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; color: var(--muted); font-size: 0.97rem; }
+.feature-text li { padding-left: 18px; position: relative; }
+.feature-text li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 1px; background: var(--gold); }
+
+.bottles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; }
+.bottles img { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); }
+
+.devices { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.device { padding: 28px 24px 28px 0; display: flex; flex-direction: column; gap: 8px; }
+.device + .device { padding-left: 24px; border-left: 1px solid var(--line); }
+.device b { font: 400 4rem/0.9 var(--display); color: var(--gold); }
+.device span { color: var(--muted); font-size: 0.95rem; }
+
+.price { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px; }
+.plan { border-radius: 20px; padding: 32px; display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.plan.once { background: var(--panel); border: 1px solid var(--line); }
+.plan.month { background: var(--wine); color: var(--on-wine); }
+.plan .eyebrow { color: inherit; opacity: 0.8; }
+.amount { font: 400 clamp(3rem, 7vw, 4.6rem)/0.95 var(--display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.amount small { font: 500 1rem/1 var(--body); letter-spacing: 0; opacity: 0.75; }
+.plan ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; font-size: 0.97rem; }
+.plan li { padding-left: 18px; position: relative; }
+.plan li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 1px; background: currentColor; opacity: 0.6; }
+.note { font-size: 0.92rem; color: var(--muted); max-width: 70ch; }
+
+footer { border-top: 1px solid var(--line); padding-top: 28px; display: flex; flex-direction: column; gap: 10px; }
+footer .big { font: 400 clamp(1.6rem, 3.4vw, 2.3rem)/1.15 var(--display); max-width: 24ch; }
+
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .wrap { gap: 68px; }
+  .feature, .feature:nth-of-type(even), .price { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .feature:nth-of-type(even) .feature-text { order: 0; }
+  .bottles { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .devices { grid-template-columns: minmax(0, 1fr); }
+  .device { padding: 20px 0; flex-direction: row; align-items: baseline; gap: 16px; }
+  .device + .device { padding-left: 0; border-left: 0; border-top: 1px solid var(--line); }
+  .device b { font-size: 3rem; min-width: 1.2ch; }
+  .plan { padding: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="logo">OASIS<small>VINOBAR</small></div>
+    <span class="eyebrow">Proposta · novembro de 2026</span>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h1>A adega inteira em um sistema. Do <em>bipe</em> ao fechamento do dia.</h1>
+      <p class="lead">Feito para a Oasis Vinobar: caixa em dólar, real e guarani com o câmbio do dia, estoque que avisa a hora de comprar e o lucro do mês sem planilha.</p>
+    </div>
+    <a href="img/caixa.jpg"><img class="shot" src="img/caixa.jpg" width="1440" height="912" alt="Tela do caixa: cupom com quatro vinhos e o total em dólar, real e guarani"></a>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">O que o sistema faz</span>
+      <h2>Cada tela resolve um momento da loja</h2>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>Caixa em três moedas, gaveta conferida</h3>
+        <p class="muted">O operador bipa a garrafa e o cliente vê o preço na moeda dele. No fim do dia, a tela ao lado diz quanto tem que estar na gaveta.</p>
+        <ul>
+          <li>Câmbio do dia fixado uma vez, automático ou digitado pela loja</li>
+          <li>Troco calculado em dólar, real e guarani</li>
+          <li>Venda a turista sem IVA com um toque</li>
+          <li>Desconto só com a senha do gerente</li>
+          <li>Fechamento por moeda, por caixa e por vendedor</li>
+        </ul>
+      </div>
+      <a href="img/vendas.jpg"><img class="shot" src="img/vendas.jpg" width="1440" height="912" alt="Fechamento do dia com dinheiro na gaveta por moeda e vendas por caixa"></a>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>Estoque que se lê de longe</h3>
+        <p class="muted">A cava mostra cada rótulo como uma barrica. Cheias em cima, vazias embaixo.</p>
+        <ul>
+          <li>Lista de compras pronta, com a quantidade a pedir</li>
+          <li>Curva ABC: quais vinhos trazem o faturamento</li>
+          <li>Rótulos parados há 30 dias aparecem sozinhos</li>
+          <li>Balanço, importação e exportação em planilha</li>
+        </ul>
+      </div>
+      <a href="img/estoque.jpg"><img class="shot" src="img/estoque.jpg" width="1440" height="912" alt="Painel de estoque com a cava em barricas e a curva ABC"></a>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>Toda garrafa que sai tem dono</h3>
+        <p class="muted">Bonificação e permuta deixam de ser garrafa sumida. Cada saída tem motivo, cliente e quem autorizou.</p>
+        <ul>
+          <li>Conta de permuta por cliente, com limite e saldo</li>
+          <li>Custo das cortesias entra no resultado do mês</li>
+          <li>Só sai com a senha de quem pode autorizar</li>
+        </ul>
+      </div>
+      <a href="img/permutas.jpg"><img class="shot" src="img/permutas.jpg" width="1440" height="912" alt="Painel de bonificações e permutas com saldo por cliente"></a>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>O lucro do mês, sem planilha</h3>
+        <p class="muted">Vendas, custo das garrafas, despesas e eventos na mesma conta.</p>
+        <ul>
+          <li>Ponto de equilíbrio: quanto falta vender para pagar o mês</li>
+          <li>Margem por vinho e por região</li>
+          <li>Despesas fixas e variáveis lançadas em segundos</li>
+        </ul>
+      </div>
+      <a href="img/custos.jpg"><img class="shot" src="img/custos.jpg" width="1440" height="912" alt="Resultado do mês com ponto de equilíbrio e lucro por dia"></a>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>Tablets que vendem junto</h3>
+        <p class="muted">O cliente bipa a garrafa no tablet e vê preço, origem e estoque. A vitrine mostra a adega por país.</p>
+        <ul>
+          <li>Preço nas três moedas, sempre com o câmbio do dia</li>
+          <li>Mapa das regiões para escolher pelo país</li>
+          <li>Sem senha: fica aberto no salão</li>
+        </ul>
+      </div>
+      <a href="img/consulta.jpg"><img class="shot" src="img/consulta.jpg" width="1440" height="912" alt="Consulta de preço no tablet mostrando um champanhe com preço em três moedas"></a>
+    </div>
+
+    <div class="feature">
+      <div class="feature-text">
+        <h3>O dono vê tudo de qualquer lugar</h3>
+        <p class="muted">O painel abre no celular: vendas do dia, lucro, vinhos mais vendidos e o que está acabando.</p>
+        <ul>
+          <li>Vendas por região, por tipo e por vendedor</li>
+          <li>Clientes, fornecedores, eventos e equipe no mesmo lugar</li>
+          <li>Cada pessoa entra com o próprio acesso e só vê o que pode</li>
+        </ul>
+      </div>
+      <a href="img/painel.jpg"><img class="shot" src="img/painel.jpg" width="1440" height="912" alt="Painel principal com vendas, lucro e vinhos mais vendidos"></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Fotos da carta</span>
+      <h2>Uma foto de celular vira foto de catálogo</h2>
+      <p class="lead">Cada garrafa ganha o mesmo padrão: fundo claro, bandeira do país e um desenho de formas próprio de cada origem.</p>
+    </div>
+    <div class="bottles">
+      <img src="img/g9.jpg" alt="Pesquera, Espanha">
+      <img src="img/g13.jpg" alt="Château Lynch-Bages, França">
+      <img src="img/g1.jpg" alt="Tignanello, Itália">
+      <img src="img/g16.jpg" alt="Veuve Clicquot, França">
+      <img src="img/g35.jpg" alt="Opus One, Estados Unidos">
+      <img src="img/g17.jpg" alt="Whispering Angel, França">
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Onde roda</span>
+      <h2>A loja inteira conectada</h2>
+    </div>
+    <div class="devices">
+      <div class="device"><b>5</b><div><h3>computadores</h3><span>caixas, escritório e gerência</span></div></div>
+      <div class="device"><b>3</b><div><h3>tablets</h3><span>consulta de preço e vitrine no salão</span></div></div>
+      <div class="device"><b>5</b><div><h3>acessos pelo celular</h3><span>para o dono e a gerência acompanharem</span></div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <span class="eyebrow">Investimento</span>
+      <h2>Dois valores, sem letra miúda</h2>
+    </div>
+    <div class="price">
+      <div class="plan once">
+        <span class="eyebrow">Implementação · uma vez</span>
+        <div class="amount">US$ 500</div>
+        <ul>
+          <li>Instalação e configuração da loja</li>
+          <li>Carga da carta de vinhos, com preços e fotos</li>
+          <li>Cadastro da equipe e das permissões</li>
+          <li>Treinamento dos operadores de caixa</li>
+        </ul>
+      </div>
+      <div class="plan month">
+        <span class="eyebrow">Mensalidade</span>
+        <div class="amount">US$ 400 <small>por mês</small></div>
+        <ul>
+          <li>Todas as telas desta página</li>
+          <li>Até 5 computadores, 3 tablets e 5 acessos pelo celular</li>
+          <li>Hospedagem e cópia de segurança dos dados</li>
+          <li>Atualizações e suporte</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note">Não incluso nesta proposta: nota fiscal eletrônica (SIFEN) e pagamento online.</p>
+  </section>
+
+  <footer>
+    <p class="big">Pronto para mostrar funcionando, com os vinhos da Oasis.</p>
+    <p class="muted">As telas desta página são do sistema real, com dados de demonstração.</p>
+  </footer>
+
+</div>
+</body>
+</html>

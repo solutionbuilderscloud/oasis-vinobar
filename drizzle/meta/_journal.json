@@ -1,0 +1,41 @@
+{
+  "version": "7",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1795091964715,
+      "tag": "0000_blue_angel",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1795094022018,
+      "tag": "0001_productive_paladin",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1795101615976,
+      "tag": "0002_dear_sentry",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1795102197744,
+      "tag": "0003_cultured_omega_flight",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1795103230723,
+      "tag": "0004_colossal_gargoyle",
+      "breakpoints": true
+    }
+  ]
+}
